@@ -36,6 +36,13 @@ void CImageProcess::getFrame() {
 	blocksY_ = (bottom_ - top_) / blockHeight;
 	cout << blocksX_ << " " << blocksY_ << endl;
 
+	frameRed_.resize(blocksY_);
+	for (int i = 0; i < blocksY_; i++) frameRed_[i].resize(blocksX_);
+	frameGreen_.resize(blocksY_);
+	for (int i = 0; i < blocksY_; i++) frameGreen_[i].resize(blocksX_);
+	frameBlue_.resize(blocksY_);
+	for (int i = 0; i < blocksY_; i++) frameBlue_[i].resize(blocksX_);
+
 	HDC hdcScreen = GetDC(NULL);
 	HDC hdc = CreateCompatibleDC(hdcScreen);
 	screenW = w - 6;
@@ -56,14 +63,13 @@ void CImageProcess::getFrame() {
 	if (ScreenData) free(ScreenData);
 	ScreenData = (BYTE*)malloc(4 * screenW * screenH);
 	GetDIBits(hdcScreen, hbmp, 0, screenH, ScreenData, (BITMAPINFO*)&bmi, DIB_RGB_COLORS);
-
 	for (int i = 0; i < blocksX_; i++) {
 		for (int j = 0; j < blocksY_; j++) {
 			int x = 13 + i * blockHeight + blockHeight / 2;
 			int y = 55 + j * blockWidth + blockWidth / 2;
-			cout << x << " " << y << " " << (int)(ScreenData[4 * ((y*screenW) + x)]) << " "
-				<< (int)(ScreenData[4 * ((y*screenW) + x) + 1]) << " "
-				<< (int)(ScreenData[4 * ((y*screenW) + x) + 2]) << endl;
+			frameRed_[j][i]   = (int)(ScreenData[4 * ((y*screenW) + x)]);
+			frameGreen_[j][i] = (int)(ScreenData[4 * ((y*screenW) + x) + 1]);
+			frameBlue_[j][i]  = (int)(ScreenData[4 * ((y*screenW) + x) + 2]);
 		}
 	}
 

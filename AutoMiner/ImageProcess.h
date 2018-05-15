@@ -1,7 +1,10 @@
 #pragma once
 #include "singleton.h"
-#include "opencv2\opencv.hpp"
+#include <iostream>
+#include <vector>
+//#include "opencv2\opencv.hpp"
 
+using namespace std;
 //using namespace cv;
 
 class CImageProcess
@@ -15,7 +18,9 @@ private:
 	int bottom_;
 	int blocksX_;
 	int blocksY_;
-	cv::Mat frame;
+	vector<vector<int>> frameRed_;
+	vector<vector<int>> frameGreen_;
+	vector<vector<int>> frameBlue_;
 };
 
 typedef NormalSingleton<CImageProcess> ImageProcess;

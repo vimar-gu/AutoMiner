@@ -3,6 +3,6 @@
 
 int main() {
 	ImageProcess::Instance()->getFrame();
-	//cvWaitKey();
+
 	system("pause");
 }

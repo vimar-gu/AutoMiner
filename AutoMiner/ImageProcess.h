@@ -2,15 +2,16 @@
 #include "singleton.h"
 #include <iostream>
 #include <vector>
-//#include "opencv2\opencv.hpp"
 
 using namespace std;
-//using namespace cv;
 
 class CImageProcess
 {
 public:
+	CImageProcess() { mineFlag_ = false; }
 	void getFrame();
+	bool getMineFlag() { return mineFlag_; }
+	vector<vector<int>> getFrameInfo() { return frameInfo_; }
 private:
 	int left_;
 	int right_;
@@ -18,9 +19,8 @@ private:
 	int bottom_;
 	int blocksX_;
 	int blocksY_;
-	vector<vector<int>> frameRed_;
-	vector<vector<int>> frameGreen_;
-	vector<vector<int>> frameBlue_;
+	bool mineFlag_;
+	vector<vector<int>> frameInfo_;
 };
 
 typedef NormalSingleton<CImageProcess> ImageProcess;

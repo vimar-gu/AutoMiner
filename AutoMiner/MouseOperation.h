@@ -1,13 +1,23 @@
 #pragma once
-#include "opencv2\highgui.hpp"
+#include <iostream>
+#include <Windows.h>
+#include "singleton.h"
 
 using namespace std;
-using namespace cv;
 
-class MouseOperation
+class CMouseOperation
 {
 public:
-	MouseOperation();
-	~MouseOperation();
+	CMouseOperation();
+	pair<int, int> getMousePos();
+	void goClick(int i, int j);
+private:
+	int left_;
+	int right_;
+	int top_;
+	int bottom_;
+	int mouseX_;
+	int mouseY_;
 };
 
+typedef NormalSingleton<CMouseOperation> MouseOperation;
